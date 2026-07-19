@@ -65,11 +65,17 @@ The SPY benchmark had a market beta close to one and an R-squared above 0.99, in
 
 Optimized portfolios had lower market betas than SPY, reflecting diversification across bonds, gold, and other asset classes. The maximum Sharpe portfolio showed negative HML exposure, consistent with its allocation toward growth-oriented assets such as QQQ.
 
-## 8. Limitations
+## 8. Transaction Cost and Turnover Analysis
+
+A transaction cost model was added to evaluate the practical impact of rebalancing. The maximum Sharpe strategy had the highest average turnover, around 49.5% per rebalance, and experienced the largest decline in net performance after transaction costs. Risk parity and equal weight portfolios had lower turnover and were less affected by implementation costs.
+
+This extension shows that optimization-based strategies can appear attractive before costs, but their practical performance depends heavily on turnover and rebalancing stability.
+
+## 9. Limitations
 
 This project does not fully model transaction costs, bid-ask spreads, taxes, or market liquidity constraints. The optimization results are sensitive to historical return and covariance estimates. Historical performance does not guarantee future results.
 
-## 9. Future Improvements
+## 10. Future Improvements
 
 Future extensions could include transaction cost modeling, turnover analysis, Ledoit-Wolf covariance shrinkage, Black-Litterman optimization, and Fama-French five-factor regression.
 
