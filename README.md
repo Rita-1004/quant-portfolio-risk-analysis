@@ -71,11 +71,17 @@ A transaction cost model was added to evaluate the practical impact of rebalanci
 
 This extension shows that optimization-based strategies can appear attractive before costs, but their practical performance depends heavily on turnover and rebalancing stability.
 
-## 9. Limitations
+## 9. Stress Testing
+
+Stress tests were conducted for the 2020 COVID crash and the 2022 rate hike period. During the COVID crash, optimized portfolios generally experienced smaller losses and drawdowns than the SPY benchmark. However, during the 2022 rate hike period, diversification benefits weakened as both equities and long-duration bonds came under pressure.
+
+These results suggest that portfolio diversification benefits are regime-dependent and that stress testing is necessary for evaluating strategy robustness under different market environments.
+
+## 10. Limitations
 
 This project does not fully model transaction costs, bid-ask spreads, taxes, or market liquidity constraints. The optimization results are sensitive to historical return and covariance estimates. Historical performance does not guarantee future results.
 
-## 10. Future Improvements
+## 11. Future Improvements
 
 Future extensions could include transaction cost modeling, turnover analysis, Ledoit-Wolf covariance shrinkage, Black-Litterman optimization, and Fama-French five-factor regression.
 
