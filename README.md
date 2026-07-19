@@ -37,27 +37,27 @@ The minimum variance portfolio achieved the lowest volatility and tail risk, whi
 
 - Cumulative Returns of Selected ETFs
 
-![](D:\我的\大学\量化\quant-portfolio-risk-analysis\figures\cumulative_returns_etfs.png)
+![Cumulative Returns of Selected ETFs](figures/cumulative_returns_etfs.png)
 
 - Efficient Frontier
 
-![](D:\我的\大学\量化\quant-portfolio-risk-analysis\figures\effective_frontier.png)
+![Efficient Frontier](figures/effective_frontier.png)
 
 - Out-of-Sample Cumulative Returns by Strategy
 
-![](D:\我的\大学\量化\quant-portfolio-risk-analysis\figures\backtest_cumulative_returns.png)
+![Out-of-Sample Cumulative Returns by Strategy](figures/backtest_cumulative_returns.png)
 
 - Drawdown Comparison
 
-![](D:\我的\大学\量化\quant-portfolio-risk-analysis\figures\drawdown_comparison.png)
+![Drawdown Comparison](figures/drawdown_comparison.png)
 
 - Rolling 3-Month Annualized Volatility
 
-![](D:\我的\大学\量化\quant-portfolio-risk-analysis\figures\rolling_volatility.png)
+![Rolling 3-Month Annualized Volatility](figures/rolling_volatility.png)
 
 - Fama-French Factor Exposure Comparison
 
-![](D:\我的\大学\量化\quant-portfolio-risk-analysis\figures\factor_exposure_comparison.png)
+![Fama-French Factor Exposure Comparison](figures/factor_exposure_comparison.png)
 
 ## 7. Factor Regression Findings
 
