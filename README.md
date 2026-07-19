@@ -77,11 +77,17 @@ Stress tests were conducted for the 2020 COVID crash and the 2022 rate hike peri
 
 These results suggest that portfolio diversification benefits are regime-dependent and that stress testing is necessary for evaluating strategy robustness under different market environments.
 
-## 10. Limitations
+## 10. Robust Covariance Estimation
+
+Ledoit-Wolf shrinkage covariance was added to evaluate whether more robust covariance estimation improves portfolio optimization. The shrinkage estimator slightly improved the minimum variance strategy, increasing its Sharpe ratio from 0.519 to 0.528, while maintaining a similar volatility level.
+
+However, it did not improve the maximum Sharpe strategy, suggesting that expected return estimation error remains an important source of instability. These results show that robust covariance estimation can help risk-based strategies, but it does not fully solve estimation risk in mean-variance optimization.
+
+## 11. Limitations
 
 This project does not fully model transaction costs, bid-ask spreads, taxes, or market liquidity constraints. The optimization results are sensitive to historical return and covariance estimates. Historical performance does not guarantee future results.
 
-## 11. Future Improvements
+## 12. Future Improvements
 
 Future extensions could include transaction cost modeling, turnover analysis, Ledoit-Wolf covariance shrinkage, Black-Litterman optimization, and Fama-French five-factor regression.
 
