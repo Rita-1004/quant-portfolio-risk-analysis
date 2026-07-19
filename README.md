@@ -83,11 +83,17 @@ Ledoit-Wolf shrinkage covariance was added to evaluate whether more robust covar
 
 However, it did not improve the maximum Sharpe strategy, suggesting that expected return estimation error remains an important source of instability. These results show that robust covariance estimation can help risk-based strategies, but it does not fully solve estimation risk in mean-variance optimization.
 
-## 11. Limitations
+## 11. Parameter Sensitivity Analysis
+
+A parameter sensitivity analysis was conducted by comparing 126-day, 252-day, and 504-day lookback windows with 21-day and 63-day rebalancing frequencies. The results show that the SPY benchmark had the highest average Sharpe ratio across parameter settings, while risk parity was the most robust optimized strategy.
+
+The maximum Sharpe strategy showed the largest variation in Sharpe ratios, indicating strong sensitivity to parameter choices and estimation error. This robustness check supports the conclusion that risk parity provides a more stable risk-adjusted performance profile among the optimized portfolio strategies.
+
+## 12. Limitations
 
 This project does not fully model transaction costs, bid-ask spreads, taxes, or market liquidity constraints. The optimization results are sensitive to historical return and covariance estimates. Historical performance does not guarantee future results.
 
-## 12. Future Improvements
+## 13. Future Improvements
 
 Future extensions could include transaction cost modeling, turnover analysis, Ledoit-Wolf covariance shrinkage, Black-Litterman optimization, and Fama-French five-factor regression.
 
