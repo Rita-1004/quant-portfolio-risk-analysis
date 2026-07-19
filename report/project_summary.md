@@ -2,122 +2,364 @@
 
 ## 1. Project Overview
 
-This project investigates whether portfolio optimization methods can improve risk-adjusted performance compared with a simple equity benchmark. The analysis focuses on portfolio construction, rolling-window backtesting, downside risk measurement, and Fama-French factor regression.
+This project develops a quantitative portfolio optimization and risk management framework to investigate whether systematic portfolio construction methods can improve risk-adjusted performance compared with a market benchmark.
 
-The project compares four portfolio strategies across major asset-class ETFs:
+Rather than focusing on short-term return prediction, this project emphasizes portfolio construction, downside risk measurement, factor exposure analysis, and out-of-sample robustness.
 
-- Equal Weight
-- Minimum Variance
-- Maximum Sharpe
-- Risk Parity
+Four portfolio strategies are implemented and compared:
 
-The SPY ETF is used as the benchmark.
+- Equal Weight Portfolio
+- Minimum Variance Portfolio
+- Maximum Sharpe Portfolio
+- Risk Parity Portfolio
 
-## 2. Data
+The strategies are evaluated using rolling-window backtesting, transaction cost analysis, stress testing, covariance shrinkage methods, parameter sensitivity analysis, and factor regression.
 
-The project uses daily historical ETF price data from 2015 to 2025. The selected ETFs represent different asset classes and risk exposures:
+The project is implemented in Python using financial data processing, numerical optimization, statistical modeling, and visualization techniques.
 
-| Ticker | Asset Class                       |
-| ------ | --------------------------------- |
-| SPY    | U.S. large-cap equity             |
-| QQQ    | U.S. technology and growth equity |
-| IWM    | U.S. small-cap equity             |
-| TLT    | Long-term U.S. Treasury bonds     |
-| GLD    | Gold                              |
-| VNQ    | U.S. real estate                  |
-| EFA    | Developed international equity    |
 
-Daily returns and monthly returns are calculated from historical price data. The analysis focuses on price-based returns.
+---
 
-## 3. Methodology
+# 2. Research Questions
 
-The project first conducts static portfolio optimization using the full sample to understand the behavior of different allocation methods. It then performs a rolling-window backtest to evaluate out-of-sample performance.
+The project investigates three main research questions:
 
-The rolling-window backtest uses:
+### Question 1:
+Can quantitative portfolio optimization methods improve risk-adjusted performance compared with a simple market benchmark?
 
-- 252 trading days as the estimation window
-- 21 trading days as the rebalancing window
-- Long-only portfolio weights
-- Full investment constraint, where weights sum to one
+### Question 2:
+How do different portfolio construction methods behave under different market environments and risk conditions?
 
-The following performance and risk metrics are calculated:
+### Question 3:
+Are portfolio performance results robust to practical considerations such as transaction costs, covariance estimation methods, and parameter choices?
 
-- Annualized return
-- Annualized volatility
-- Sharpe ratio
+
+---
+
+# 3. Data and Asset Universe
+
+The analysis uses exchange-traded funds (ETFs) representing different asset classes:
+
+| Ticker | Asset Exposure |
+|---|---|
+| SPY | U.S. Large-Cap Equity Benchmark |
+| QQQ | Technology and Growth Equity |
+| IWM | U.S. Small-Cap Equity |
+| TLT | Long-Term Treasury Bonds |
+| GLD | Gold |
+| VNQ | Real Estate Investment Trusts |
+| EFA | International Developed Markets Equity |
+
+Daily adjusted closing prices are collected and transformed into daily and monthly returns.
+
+The sample period covers:
+
+**January 2015 - December 2025**
+
+SPY is used as the market benchmark for performance comparison.
+
+
+---
+
+# 4. Portfolio Construction Methodology
+
+Four portfolio optimization methods are implemented.
+
+
+## 4.1 Equal Weight Portfolio
+
+The equal weight portfolio assigns identical weights to all assets:
+
+\[
+w_i=\frac{1}{N}
+\]
+
+This strategy provides a simple benchmark for comparison.
+
+
+## 4.2 Minimum Variance Portfolio
+
+The minimum variance portfolio solves:
+
+\[
+minimize \quad w^T\Sigma w
+\]
+
+where:
+
+- \(w\) represents portfolio weights
+- \(\Sigma\) represents the covariance matrix
+
+The objective is to construct the lowest volatility portfolio under long-only constraints.
+
+
+## 4.3 Maximum Sharpe Portfolio
+
+The maximum Sharpe portfolio maximizes:
+
+\[
+Sharpe=\frac{R_p-R_f}{\sigma_p}
+\]
+
+where:
+
+- \(R_p\) is portfolio return
+- \(R_f\) is the risk-free rate
+- \(\sigma_p\) is portfolio volatility
+
+This strategy seeks the highest risk-adjusted return.
+
+
+## 4.4 Risk Parity Portfolio
+
+The risk parity strategy allocates weights according to risk contribution rather than capital allocation.
+
+The objective is to equalize each asset's contribution to total portfolio risk.
+
+This approach emphasizes diversification and portfolio stability.
+
+
+---
+
+# 5. Rolling Window Backtesting Framework
+
+To avoid look-ahead bias, an out-of-sample rolling-window backtesting framework is implemented.
+
+The baseline setting uses:
+
+- Lookback window: 252 trading days
+- Rebalancing frequency: 21 trading days
+
+
+At each rebalance date:
+
+1. Historical data from the previous estimation window is used to estimate portfolio parameters.
+2. Portfolio weights are optimized.
+3. The portfolio is evaluated on future unseen returns.
+
+
+This framework provides a more realistic evaluation of portfolio performance compared with full-sample optimization.
+
+
+---
+
+# 6. Performance and Risk Evaluation
+
+Portfolio performance is evaluated using both return-based and downside risk metrics.
+
+
+The main evaluation metrics include:
+
+- Annualized Return
+- Annualized Volatility
+- Sharpe Ratio
+- Maximum Drawdown
+- Historical Value-at-Risk (VaR)
+- Historical Conditional Value-at-Risk (CVaR)
+- Rolling Volatility
+
+
+The analysis emphasizes risk-adjusted performance and downside protection rather than simply maximizing returns.
+
+
+---
+
+# 7. Transaction Costs and Turnover Analysis
+
+To improve practical relevance, transaction costs and portfolio turnover are incorporated into the backtesting framework.
+
+Portfolio turnover is calculated during each rebalance period:
+
+\[
+Turnover=\sum |w_t-w_{t-1}|
+\]
+
+
+Transaction costs are deducted from gross portfolio returns to obtain net performance.
+
+The results show that transaction costs reduce realized portfolio performance, but the relative ranking of portfolio strategies remains broadly stable.
+
+This analysis highlights the importance of considering implementation constraints when evaluating quantitative strategies.
+
+
+---
+
+# 8. Stress Testing
+
+Portfolio strategies are evaluated during major market stress periods:
+
+- COVID-19 market crash
+- 2022 interest rate hiking period
+
+
+Stress testing focuses on:
+
+- Period return
+- Volatility
 - Maximum drawdown
-- 95% historical VaR
-- 95% historical CVaR
+- Historical VaR
+- Historical CVaR
 
-Finally, Fama-French three-factor regression is used to analyze each strategy's exposure to market, size, and value factors.
 
-## 4. Static Optimization Results
+The results demonstrate that different portfolio construction methods exhibit different levels of downside protection during stressed market environments.
 
-The static optimization results show that different portfolio construction methods produce very different allocations. The minimum variance portfolio allocates more weight to defensive and diversifying assets such as TLT and GLD. The maximum Sharpe portfolio is more concentrated in GLD and QQQ, reflecting their strong historical risk-adjusted performance during the sample period.
+Risk-oriented strategies generally provide stronger defensive characteristics compared with equity-heavy portfolios.
 
-However, static optimization uses the full sample and therefore should not be interpreted as true out-of-sample performance. The rolling-window backtest provides a more realistic evaluation.
 
-## 5. Rolling Backtest Results
+---
 
-The rolling-window backtest shows that the SPY benchmark achieved the highest annualized return and the highest Sharpe ratio over the out-of-sample period. However, SPY also had the highest volatility and the largest downside risk.
+# 9. Robustness Analysis
 
-| Strategy         | Annualized Return | Annualized Volatility | Sharpe Ratio |
-| ---------------- | -----------------:| ---------------------:| ------------:|
-| Equal Weight     | 9.70%             | 13.49%                | 0.571        |
-| Minimum Variance | 7.11%             | 9.85%                 | 0.519        |
-| Maximum Sharpe   | 9.12%             | 15.22%                | 0.468        |
-| Risk Parity      | 9.37%             | 11.39%                | 0.647        |
-| SPY Benchmark    | 14.05%            | 18.10%                | 0.665        |
 
-Among the optimized strategies, the risk parity portfolio delivered the strongest risk-adjusted performance. Its Sharpe ratio was close to that of SPY, while its volatility was substantially lower.
+## 9.1 Ledoit-Wolf Covariance Shrinkage
 
-## 6. Downside Risk Analysis
+Portfolio optimization is highly sensitive to covariance estimation errors.
 
-The downside risk results show that SPY had the largest drawdown and the most severe tail losses. This suggests that although SPY delivered the highest return, it also exposed investors to larger downside risk.
+To improve covariance estimation stability, Ledoit-Wolf shrinkage covariance estimation is implemented and compared with traditional sample covariance estimation.
 
-| Strategy         | Maximum Drawdown | 95% Historical VaR | 95% Historical CVaR |
-| ---------------- | ----------------:| ------------------:| -------------------:|
-| Equal Weight     | -27.58%          | -1.23%             | -1.99%              |
-| Minimum Variance | -27.27%          | -0.94%             | -1.42%              |
-| Maximum Sharpe   | -28.76%          | -1.52%             | -2.31%              |
-| Risk Parity      | -26.97%          | -1.06%             | -1.70%              |
-| SPY Benchmark    | -34.10%          | -1.69%             | -2.78%              |
 
-The minimum variance portfolio achieved the lowest volatility and the smallest tail risk. The risk parity portfolio provided a strong balance between return and downside protection.
+The results show:
 
-## 7. Factor Regression Results
+- Ledoit-Wolf slightly improves the minimum variance strategy.
+- The Sharpe ratio increases due to more stable risk estimation.
+- Maximum Sharpe optimization does not significantly improve, suggesting that expected return estimation remains a major source of uncertainty.
 
-The Fama-French three-factor regression shows that SPY is almost entirely explained by market exposure, with a market beta close to one and an R-squared above 0.99.
 
-| Strategy         | Alpha     | Market Beta | SMB Beta | HML Beta | R-squared |
-| ---------------- | ---------:| -----------:| --------:| --------:| ---------:|
-| Equal Weight     | -0.000049 | 0.651       | 0.138    | -0.014   | 0.872     |
-| Minimum Variance | 0.000034  | 0.292       | 0.025    | -0.110   | 0.356     |
-| Maximum Sharpe   | 0.000012  | 0.475       | 0.051    | -0.227   | 0.419     |
-| Risk Parity      | 0.000037  | 0.467       | 0.136    | -0.046   | 0.660     |
-| SPY Benchmark    | -0.000072 | 0.982       | -0.121   | 0.019    | 0.992     |
+These findings highlight that robust covariance estimation can improve risk-based strategies but cannot completely eliminate estimation risk.
 
-The optimized portfolios have lower market betas than SPY, reflecting their diversification across bonds, gold, real estate, and international equities. The maximum Sharpe portfolio has a negative HML loading, consistent with its allocation toward growth-oriented assets such as QQQ.
 
-The alpha estimates are close to zero, so the results should be interpreted as differences in factor exposure rather than evidence of persistent abnormal returns.
+---
 
-## 8. Limitations
+## 9.2 Parameter Sensitivity Analysis
 
-This project has several limitations. First, the analysis does not fully model transaction costs, bid-ask spreads, taxes, or market liquidity constraints. Second, the optimization methods are sensitive to historical mean return and covariance estimates. Third, the analysis uses historical price-based returns, and historical performance does not guarantee future results.
+To evaluate whether strategy performance depends on specific parameter choices, sensitivity analysis is conducted across different:
 
-## 9. Future Improvements
+- Lookback windows:
+  - 126 trading days
+  - 252 trading days
+  - 504 trading days
 
-Future extensions could include:
+- Rebalancing frequencies:
+  - 21 trading days
+  - 63 trading days
 
-- Transaction cost and turnover analysis
-- Ledoit-Wolf covariance shrinkage
+
+The results indicate:
+
+- Risk parity demonstrates relatively stable performance across different parameter settings.
+- Maximum Sharpe optimization achieves strong performance under certain settings but shows higher sensitivity to parameter choices.
+- Strategies relying heavily on expected return estimation are more vulnerable to estimation uncertainty.
+
+
+This robustness analysis reduces concerns regarding overfitting and improves confidence in the evaluation results.
+
+
+---
+
+# 10. Factor Exposure Analysis
+
+To understand the sources of portfolio returns, Fama-French factor regression is performed.
+
+The regression model is:
+
+\[
+R_p-R_f=
+\alpha+
+\beta_1(MKT-RF)
++\beta_2SMB
++\beta_3HML
++\epsilon
+\]
+
+
+The analysis evaluates:
+
+- Alpha
+- Market exposure
+- Size exposure
+- Value exposure
+- R-squared
+
+
+Factor regression demonstrates that different portfolio strategies have distinct systematic risk exposures.
+
+Rather than assuming excess returns are generated purely by optimization, the analysis examines whether performance can be explained by underlying market factors.
+
+
+---
+
+# 11. Key Findings
+
+The main findings of this project are:
+
+
+### 1. Portfolio optimization methods provide different risk-return characteristics.
+
+No single optimization method dominates across all evaluation dimensions.
+
+
+### 2. Risk parity provides relatively robust performance.
+
+Among optimized portfolios, risk parity demonstrates stronger stability across different parameter settings and market conditions.
+
+
+### 3. Maximum Sharpe optimization is sensitive to estimation assumptions.
+
+Although maximum Sharpe optimization can achieve strong performance under certain conditions, its dependence on expected return estimates creates higher parameter sensitivity.
+
+
+### 4. Transaction costs matter for practical implementation.
+
+Ignoring turnover and trading costs may overestimate real-world portfolio performance.
+
+
+### 5. Robust covariance estimation improves risk estimation.
+
+Ledoit-Wolf shrinkage provides more stable covariance estimates and improves certain risk-based strategies.
+
+
+### 6. Portfolio returns are partially explained by systematic risk factors.
+
+Factor regression provides additional interpretation of strategy behavior beyond raw performance statistics.
+
+
+---
+
+# 12. Limitations and Future Improvements
+
+Several limitations remain.
+
+
+## Limitations
+
+1. Historical returns may not accurately predict future performance.
+
+2. Expected return estimation remains challenging in mean-variance optimization.
+
+3. Transaction cost assumptions are simplified.
+
+4. The current framework focuses on long-only portfolio constraints.
+
+5. ETF-based analysis may not capture individual security-level opportunities.
+
+
+## Future Improvements
+
+Potential extensions include:
+
 - Black-Litterman portfolio optimization
-- Fama-French five-factor regression
-- Stress testing during crisis periods
-- Comparison with additional benchmarks
+- Multi-factor equity selection models
+- Dynamic asset allocation models
+- Regime-switching approaches
+- Machine learning-based return forecasting
 
-## 10. Conclusion
 
-This project shows that portfolio optimization methods do not necessarily outperform a strong equity benchmark in terms of raw return. However, strategies such as risk parity and minimum variance can improve risk control by reducing volatility, drawdowns, and tail losses.
+---
 
-From a risk management perspective, the results highlight the importance of evaluating portfolios not only by return, but also by downside risk, factor exposure, and out-of-sample robustness.
+# Conclusion
+
+This project develops a quantitative portfolio optimization and risk management framework combining modern portfolio theory, statistical risk analysis, factor modeling, and robustness testing.
+
+The results demonstrate that evaluating investment strategies requires not only return analysis but also careful consideration of downside risk, implementation costs, parameter sensitivity, and systematic risk exposure.
+
+The project provides a practical application of quantitative methods to financial decision-making and demonstrates the connection between actuarial risk management, statistical modeling, and quantitative finance.
